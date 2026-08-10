@@ -1325,17 +1325,11 @@ cd "${SOURCE_CODE_PATH}/"
 case "${IF_NGINX}" in 
     "true"|"True")
 
-    if [ -n "${FORCE_NGINX_VERSION}" ]; then
-        export NGINX_VERSION="${FORCE_NGINX_VERSION}"
-    elif [ -z "${NGINX_VERSION}" ]; then
-        export NGINX_VERSION="${DEFAULT_NGINX_VERSION}"
-    fi
-
-    curl -LSo "${SOURCE_CODE_PATH}/__nginx_${NGINX_VERSION}.tar.gz" "https://nginx.org/download/nginx-${NGINX_VERSION}.tar.gz"
-    mkdir -p "${SOURCE_CODE_PATH}/Nginx"
-    tar -xf "${SOURCE_CODE_PATH}/__nginx_${NGINX_VERSION}.tar.gz" -C "${SOURCE_CODE_PATH}/Nginx" --strip-components=1
+    curl -LSo "${SOURCE_CODE_PATH}/__nginx_${FORCE_NGINX_VERSION:-${NGINX_VERSION:-${DEFAULT_NGINX_VERSION}}}.tar.gz" "https://nginx.org/download/nginx-${FORCE_NGINX_VERSION:-${NGINX_VERSION:-${DEFAULT_NGINX_VERSION}}}.tar.gz"
+    mkdir -p "${SOURCE_CODE_PATH}/nginx"
+    tar -xf "${SOURCE_CODE_PATH}/__nginx_${FORCE_NGINX_VERSION:-${NGINX_VERSION:-${DEFAULT_NGINX_VERSION}}}.tar.gz" -C "${SOURCE_CODE_PATH}/nginx" --strip-components=1
     
-    cd "${SOURCE_CODE_PATH}/Nginx"
+    cd "${SOURCE_CODE_PATH}/nginx"
 
     case "${IF_CORAZA_NGINX}" in
         "true"|"True")
