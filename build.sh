@@ -415,7 +415,7 @@ case "${IF_NGX_DEVEL_KIT}" in
         ;;
 
         *)
-        # Keep user-provided branchhttps://github.com/google/ngx_brotli
+        # Keep user-provided branch
         :
         ;;
 
@@ -853,7 +853,7 @@ case "${IF_LUA_RESTY_OPENSSL}" in
 
 esac
 
-# Download https://github.com/cdbattags/lua-resty-session
+# Download https://github.com/bungle/lua-resty-session
 # ARG IF_LUA_RESTY_SESSION=true
 # ARG LUA_RESTY_SESSION_BRANCH=master
 

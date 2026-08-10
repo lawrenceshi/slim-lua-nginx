@@ -27,9 +27,9 @@ LABEL \
     space.lawrenceshi.image.ModsNGX.stage="builder" \
     space.lawrenceshi.image.ModsNGX.copyright="Copyright © 2026 Lawrence." \
     space.lawrenceshi.image.ModsNGX.notice="This image is intended for testing and development. Do not use in production." \
-    space.lawrenceshi.image.ModsNGX.easter_egg="I hereby grant myself the right to use this image in production, although such use is not recommended. I eat my own dog food." \
+    space.lawrenceshi.image.ModsNGX.easter_egg="I hereby grant myself the right to use this image in production, although such use is not recommended." \
     space.lawrenceshi.image.ModsNGX.warning="This software is provided 'AS IS', WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND." \
-    space.lawrenceshi.image.ModsNGX.legal="Nginx is a trademark of F5, Inc. This image is not affiliated with or endorsed by F5, Inc. or the Nginx project." \
+    space.lawrenceshi.image.ModsNGX.legal="Nginx is a registered trademark of F5, Inc. This image is not affiliated with or endorsed by F5, Inc. or the Nginx project." \
     space.lawrenceshi.image.ModsNGX.legal_summary="This is not an official Nginx image. Use at your own risk." \
     space.lawrenceshi.image.ModsNGX.previous_name="slim-lua-nginx"
 
