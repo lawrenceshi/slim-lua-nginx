@@ -1089,45 +1089,6 @@ case "${IF_NGX_FANCYINDEX}" in
     ;;
 esac
 
-# Download https://github.com/nginx/njs
-# ARG IF_NJS=true
-# ARG NJS_BRANCH=master
-
-case "${IF_NJS}" in 
-    "true"|"True")
-
-    case "${NJS_BRANCH}" in 
-        "")
-        branch_empty_notice "NJS_BRANCH"
-        ;;
-
-        "main"|"latest"|"default")
-        # Rewrite non-standard branch name
-        export NJS_BRANCH=master
-        ;;
-
-        *)
-        # Keep user-provided branch
-        :
-        ;;
-    esac
-
-    git_clone "${NJS_BRANCH}" "https://${GITHUB_URL}/nginx/njs.git" "njs"
-
-    cd "${SOURCE_CODE_PATH}/njs/"
-
-    ;;
-
-    "false"|"False")
-    :    
-    ;;
-
-    *)
-    if_invalid_notice "IF_NJS"
-    ;;
-esac
-
-
 # Download https://github.com/openresty/headers-more-nginx-module
 # ARG IF_HEADERS_MORE_NGINX_MODULE=true
 # ARG HEADERS_MORE_NGINX_MODULE_BRANCH=master
@@ -1361,17 +1322,6 @@ case "${IF_NGINX}" in
         ;;
     esac
 
-    case "${IF_NJS}" in
-        "true"|"True")
-
-        INTERNAL_NJS_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/njs/nginx"
-        
-        # NJS enables QuickJS by default. We do not need QuickJS.
-        # Refer to to https://github.com/nginx/njs/blob/master/nginx/config
-        export NJS_QUICKJS=NO
-        ;;
-    esac
-
     case "${IF_HEADERS_MORE_NGINX_MODULE}" in
         "true"|"True")
         INTERNAL_HEADERS_MORE_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/headers-more-nginx-module"
@@ -1404,7 +1354,6 @@ case "${IF_NGINX}" in
     ${INTERNAL_LUA_NGINX_MODULE_CONFIG_COMMAND} \
     ${INTERNAL_NGX_HTTP_GEOIP2_MODULE_CONFIG_COMMAND} \
     ${INTERNAL_NGX_FANCYINDEX_CONFIG_COMMAND} \
-    ${INTERNAL_NJS_CONFIG_COMMAND} \
     ${INTERNAL_HEADERS_MORE_NGINX_MODULE_CONFIG_COMMAND} \
     ${INTERNAL_NGINX_RTMP_MODULE_CONFIG_COMMAND} \
     ${INTERNAL_ZSTD_NGINX_MODULE_CONFIG_COMMAND} \
