@@ -1339,37 +1339,39 @@ case "${IF_NGINX}" in
 
     case "${IF_CORAZA_NGINX}" in
         "true"|"True")
-        export INTERNAL_CORAZA_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/coraza-nginx"
+        INTERNAL_CORAZA_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/coraza-nginx"
         ;;
     esac
 
     case "${IF_NGX_DEVEL_KIT}" in
         "true"|"True")
-        export INTERNAL_NGX_DEVEL_KIT_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx_devel_kit/"
+        INTERNAL_NGX_DEVEL_KIT_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx_devel_kit/"
         ;;
     esac
 
     case "${IF_LUA_NGINX_MODULE}" in 
         "true"|"True")
-        export INTERNAL_LUA_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/lua-nginx-module"
+        INTERNAL_LUA_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/lua-nginx-module"
         ;;
     esac
 
     case "${IF_NGX_HTTP_GEOIP2_MODULE}" in
         "true"|"True")
-        export INTERNAL_NGX_HTTP_GEOIP2_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx_http_geoip2_module"
+        INTERNAL_NGX_HTTP_GEOIP2_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx_http_geoip2_module"
         ;;
     esac
 
     case "${IF_NGX_FANCYINDEX}" in
         "true"|"True")
-        export INTERNAL_NGX_FANCYINDEX_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx-fancyindex"
+        INTERNAL_NGX_FANCYINDEX_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx-fancyindex"
         ;;
     esac
 
     case "${IF_NJS}" in
         "true"|"True")
-        export INTERNAL_NJS_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/njs/nginx"
+
+        INTERNAL_NJS_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/njs/nginx"
+        
         # NJS enables QuickJS by default. We do not need QuickJS.
         # Refer to to https://github.com/nginx/njs/blob/master/nginx/config
         export NJS_QUICKJS=NO
@@ -1378,25 +1380,25 @@ case "${IF_NGINX}" in
 
     case "${IF_HEADERS_MORE_NGINX_MODULE}" in
         "true"|"True")
-        export INTERNAL_HEADERS_MORE_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/headers-more-nginx-module"
+        INTERNAL_HEADERS_MORE_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/headers-more-nginx-module"
         ;;
     esac
 
     case "${IF_NGINX_RTMP_MODULE}" in
         "true"|"True")
-        export INTERNAL_NGINX_RTMP_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/nginx-rtmp-module"
+        INTERNAL_NGINX_RTMP_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/nginx-rtmp-module"
         ;;
     esac
 
     case "${IF_ZSTD_NGINX_MODULE}" in
         "true"|"True")
-        export INTERNAL_ZSTD_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/zstd-nginx-module"
+        INTERNAL_ZSTD_NGINX_MODULE_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/zstd-nginx-module"
         ;;
     esac
 
     case "${IF_NGX_BROTLI}" in
         "true"|"True")
-        export INTERNAL_NGX_BROTLI_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx_brotli"
+        INTERNAL_NGX_BROTLI_CONFIG_COMMAND="--add${NGINX_MODULE_OPTION}-module=${SOURCE_CODE_PATH}/ngx_brotli"
         ;;
     esac
     
@@ -1415,7 +1417,7 @@ case "${IF_NGINX}" in
     ${INTERNAL_NGX_BROTLI_CONFIG_COMMAND}
 
     make -j"$(nproc)" "${NGINX_MAKE_OPTION}"
-    
+
     ;;
     "false"|"False")
     print_warning "You have chosen not to compile Nginx. Please make sure this is intentional."
