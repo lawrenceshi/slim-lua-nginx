@@ -1,5 +1,5 @@
-import json5
 import os
+import pathlib
 
 # The function for writing text
 def write_text(read_file_name:str, write_to_file):
@@ -14,27 +14,46 @@ def write_replace_text(read_file_name:str, write_to_file, change:dict):
             replace_text = replace_text.replace(k, v)
         write_to_file.write(replace_text)
 
-def main():
-    # The configuration file actually stores all the directions.
-    with open("./configure.json5", "r" ) as file:
-        config = json5.load(file)
+def ask_number(question:str,options:list) -> int:
+    print("==============================")
+    print(question)
+    for i in range(len(options)):
+        print(f"Option {i+1}. {options[i]}")
+    print("==============================")
 
-    # List of modules
-    modules = []
+    answer=int(input("Please select an option by entering the corresponding number: "))
 
-    # k = key, v = vaule of the items.
-    for k,v in config.items():
-        # The dir the Containerfile is going be stored in.
-        file_dir_path = os.path.join(k)
-        # The real path of the Containerfile
-        # Rather Dockerfile or Containerfile, either or, changeable
-        file_write_path = os.path.join(k, "Containerfile")
-        # Create dir
-        if not os.path.exists(file_dir_path):
-            os.makedirs(file_dir_path)
-        # Open the file we are going to generate
-        # Write mode to rewrite everything
-        with open(file_write_path, "w") as container_file:
+    if answer > len(options):
+        print("Invalid input. Please enter a number corresponding to one of the options.")
+        return ask_number(question, options)
+    return answer
+
+def ask_bool(question:str) -> bool:
+    print("==============================")
+    print(question)
+    print("==============================")
+
+    answer = input("Input (y/n): ").lower()
+
+    if answer == "y" or answer == "yes" or answer == "true":
+        return True
+    elif answer == "n" or answer == "no" or answer == "false":
+        return False
+    else:
+        print("Invalid input. Please enter 'y' or 'n'.")
+        return ask_bool(question)
+
+def main(
+        Containerfile_write_path:list = ["Production.Containerfile"], 
+        ARGs_env_path:list = ["ARGs.env"],
+        if_arg_env:bool = True,
+        Cloud_or_Local:int = 1,
+
+        ) -> bool:
+
+    Containerfile_write_path=os.path.normpath(os.path.join(Containerfile_write_path))
+    
+    with open(Containerfile_write_path, "w") as container_file:
             # Some non-usable error test:
             if "alpine" in v["builder_image"] and v["include_corazawaf"]:
                 print("This config is Incompatible and not useable")
@@ -55,4 +74,10 @@ def main():
             
 
 if __name__ == "__main__":
-    main()
+    print("Starting the configuration script")
+    Cloud_or_Local = ask_number(question="Do you want to use the builder image from the cloud, or build it locally?", options=["Cloud", "Locally"])
+
+    main(
+        Containerfile_write_path = "Production.Containerfile",
+        Cloud_or_Local=Cloud_or_Local
+    )
